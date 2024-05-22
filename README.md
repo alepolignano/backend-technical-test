@@ -86,7 +86,7 @@ which can be inefficient with large datasets.
 
 **Task:** update the endpoint to handle large datasets efficiently.
 
-## Exercise 6: use InterPro accessions, not primary keys
+## Exercise 6: use InterPro accessions, not primary keys - Solution: [code](https://github.com/alepolignano/backend-technical-test/blob/master/seqfam/seqfamapp/serializers.py#L86)
 
 The [pfam](http://127.0.0.1:8000/pfam) page lists all Pfam entries in the database.
 For each Pfam entry, the last column should display the accession of the InterPro entry in which the Pfam entry is integrated, if integrated.
