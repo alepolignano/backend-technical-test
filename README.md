@@ -11,7 +11,7 @@ InterPro serves as a comprehensive resource for protein classification, amalgama
 from various databases like Pfam. Pfam, in turn, provides detailed models of protein families 
 and domains derived from multiple sequence alignments, with its sequence data sourced from UniProtKB.
 
-## Getting started
+## Usage
 
 You need Python 3.10 or higher. Run the following commands to install depencies, 
 create a SQLite database, populate it with fixture data, and start the server.
