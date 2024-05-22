@@ -47,7 +47,7 @@ regardless of the number of annotations it receives from Pfam entries.
 
 
 
-## Exercise 2: implement a detailed endpoint for InterPro entries
+## Exercise 2: implement a detailed endpoint for InterPro entries - Solution [1](https://github.com/alepolignano/backend-technical-test/blob/master/seqfam/seqfamapp/serializers.py#L69)
 
 **Task:** create a detailed endpoint that retrieves information about an InterPro entry based on its accession. 
 The endpoint should return the following properties:
