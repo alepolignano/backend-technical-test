@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import UniProtKBEntry, InterProEntry, PfamEntry, PfamMatch
 
+
 """
     - Exercise nr.1: count each protein once
 
@@ -41,9 +42,17 @@ def get_unique_uniprot_info(interpro_entry_id, count_only = False):
 
 
 class UniProtKBSerializer(serializers.ModelSerializer):
+
+    # Exercise 4 - sequence length (custom field to get the sequence length)
+    sequence_length = serializers.SerializerMethodField()
+    def get_sequence_length(self, uniprot_entry):
+        return len(uniprot_entry.sequence)
+
     class Meta:
         model = UniProtKBEntry
-        fields = '__all__'
+
+        # Exercise 4 - sequence length (substitute sequence field with sequence_length field)
+        fields = ("accession", "name", "reviewed", "sequence_length")
 
 
 class InterProSerializer(serializers.ModelSerializer):
@@ -52,12 +61,40 @@ class InterProSerializer(serializers.ModelSerializer):
     class Meta:
         model = InterProEntry
         fields = '__all__'
+        
 
     def get_protein_count(self, obj):
-            return get_unique_uniprot_info(obj, count_only=True)
+        return get_unique_uniprot_info(obj, count_only=True)
 
+# Exercise nr. 2 implement a detailed endpoint for InterPro entries
+class InterProEntrySerializer(serializers.ModelSerializer):
+
+    # Custom fields to get the list of the PFAM and UniProt accessions
+    pfam = serializers.SerializerMethodField()
+    def get_pfam(self, interpro_entry_id):
+        pfam_obj = PfamEntry.objects.filter(interpro_entry=interpro_entry_id).values_list("accession", flat=True)
+        return pfam_obj
+    
+    uniprot = serializers.SerializerMethodField()
+    def get_uniprot(self, interpro_entry_id):
+        return get_unique_uniprot_info(interpro_entry_id)
+
+    class Meta:
+        model = InterProEntry
+        fields = ("accession", "name", "description", "pfam", "uniprot")
 
 class PfamSerializer(serializers.ModelSerializer):
+
+    # Exercise 6 - InterPro accession instead of the id (creating custom field for accession)
+    interpro_accession = serializers.SerializerMethodField()
+    def get_interpro_accession(self, pfam_obj):
+        interpro_entry = InterProEntry.objects.filter(pk=pfam_obj.interpro_entry_id).first()
+        if (interpro_entry):
+            return interpro_entry.accession
+        return None
+    
     class Meta:
         model = PfamEntry
-        fields = '__all__'
+
+        # Exercise 6 - InterPro accession instead of the id (excluding only the field interpro_entry, which contains the id)
+        exclude = ("interpro_entry", )

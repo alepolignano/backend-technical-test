@@ -1,3 +1,28 @@
 table {
     width: 100%;
 }
+
+a:link { 
+    text-decoration: none; 
+}
+ a:visited { 
+  text-decoration: none; 
+  color: black !important;
+} 
+a:hover { 
+  text-decoration: none; 
+} 
+a:active { 
+  text-decoration: none; 
+}
+
+.page-btn {
+    padding: 5px;
+    margin: 2px;
+}
+
+.page-div {
+    width: 100%;
+    text-align: right;
+    height: 100px;
+}
