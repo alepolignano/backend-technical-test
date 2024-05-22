@@ -15,4 +15,7 @@ urlpatterns = [
     path('interpro', views.interpro_list, name='interpro_list'),
     path('pfam', views.pfam_list, name='pfam_list'),
     path('uniprot', views.uniprot_list, name='uniprot_list'),
+
+    # Exercise 2 - implement a detailed endpoint for InterPro entries
+    path('api/interpro/<str:accession>', views.InterProEntryView.as_view(), name="interpro_entry"),
 ]

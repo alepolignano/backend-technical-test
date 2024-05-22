@@ -4,15 +4,45 @@ document.addEventListener('DOMContentLoaded', function () {
         .replace(/^\/+/, '')
         .replace(/\/+$/, '');
 
-    getData(endpoint);
+    // Exercise 5 - not all proteins at once (get url param)
+    let page = url.searchParams.get("page") ? url.searchParams.get("page") : 0
+    getData(endpoint, page);
 });
 
-async function getData(endpoint) {
-    const apiURL = `/api/${endpoint}`;
-    const response = await fetch(apiURL);
-    const data = await response.json();
-    let columns = [];
+// Exercise 5 - not all proteins at once (button navigation)
+function addPaginationButtonsUniprot(prevPageUrl, nextPageUrl){
+
+    let nextPageButtonDiv = document.createElement("div")
+    nextPageButtonDiv.classList.add("page-div")
+    nextPageButtonDiv.setAttribute("id", "page-div")
+    document.getElementById("page-content").appendChild(nextPageButtonDiv)
+
+    let nextPageButton = document.createElement("a")
+    nextPageButton.innerText = "Next"
+    nextPageButton.href = nextPageUrl
+    nextPageButton.classList.add("page-btn")
+
+    let prevPageButton = document.createElement("a")
+    prevPageButton.innerText = "Previous"
+    prevPageButton.href = prevPageUrl
+    prevPageButton.classList.add("page-btn")
+
+    document.getElementById('page-div').appendChild(prevPageButton);
+    document.getElementById('page-div').appendChild(nextPageButton);
+}
+
+async function getData(endpoint, page = 0) {
+
+    let apiURL = `/api/${endpoint}`;
     let fn = null;
+
+    // Exercise 5 - not all proteins at once (setup)
+    let paginationData = false;
+    let notNullPage = false
+    let prevPageUrl = "#"
+    let nextPageUrl = "uniprot?page=2"
+
+    
     switch (endpoint) {
         case 'interpro':
             columns = ['Accession', 'Name', 'Description', 'Proteins'];
@@ -25,9 +55,29 @@ async function getData(endpoint) {
         case 'uniprot':
             columns = ['Accession', 'Name', 'Source', 'Length'];
             fn = renderUniProt;
+            paginationData = true;
+
+            // Exercise 5 - not all proteins at once (edit url to include page)
+            if (page != 0) {
+                apiURL += `/?page=${page}`
+            }
+
             break
     }
 
+    const response = await fetch(apiURL);
+    let data = await response.json();
+
+    if (paginationData){
+
+        // Exercise 5 - not all proteins at once (setup URLs for next and prev buttons)
+        prevPageUrl = data["previous"] ? `uniprot?page=${parseInt(page) - 1}`: "#"
+        nextPageUrl = data["next"] ? `uniprot?page=${parseInt(page) + 1}`: "#"
+
+        // Exercise 5 - not all proteins at once (now the actual data is stored in data["results"])
+        data = data["results"]
+    }
+    
     if (fn === null)
         return;
 
@@ -40,6 +90,11 @@ async function getData(endpoint) {
     }));
     table.appendChild(tbody);
     document.getElementById('page-content').appendChild(table);
+
+    // Exercise 5 - not all proteins at once (add buttons to page)
+    if (endpoint == 'uniprot'){
+        addPaginationButtonsUniprot(prevPageUrl, nextPageUrl)
+    }
 }
 
 function initTable(columns) {
@@ -68,16 +123,17 @@ function renderInterPro(item) {
 }
 
 function renderPfam(item) {
-    return ['accession', 'name', 'description', 'interpro_entry'].map((key,) => {
+    return ['accession', 'name', 'description', 'interpro_accession'].map((key,) => {
         const td = document.createElement('td');
         td.innerText = item[key] !== null ? item[key] : '';
         return td;
     });
 }
 
+// Exercise 4 - Edit the field name and innerText to get directly the sequence length
+function renderUniProt(item) {    
 
-function renderUniProt(item) {
-    return ['accession', 'name', 'reviewed', 'sequence'].map((key,) => {
+    return ['accession', 'name', 'reviewed', 'sequence_length'].map((key,) => {
         const td = document.createElement('td');
 
         if (key === 'accession' || key === 'name')
@@ -85,8 +141,7 @@ function renderUniProt(item) {
         else if (key === 'reviewed')
             td.innerText = item[key] ? 'UniProtKB/Swiss-Prot' : 'UniProtKB/TrEMBL';
         else
-            td.innerText = `${item[key].length.toLocaleString()} AA`;
-
+            td.innerText = `${item[key]} AA`;
         return td;
     })
 }
