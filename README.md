@@ -79,7 +79,7 @@ This is inefficient, as we only need the length.
 
 **Task:** update the project so the length is returned instead of the sequence.
 
-## Exercise 5: not all proteins at once
+## Exercise 5: not all proteins at once - Solution: [code#1](https://github.com/alepolignano/backend-technical-test/blob/master/seqfam/seqfamapp/views.py#L14), [code#2](https://github.com/alepolignano/backend-technical-test/blob/master/seqfam/seqfamapp/static/list.js#L39)
 
 The [/api/uniprot](http://127.0.0.1:8000/api/uniprot) endpoint returns all UniProtKB entries in the database, 
 which can be inefficient with large datasets. 
