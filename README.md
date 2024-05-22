@@ -26,7 +26,7 @@ python manage.py runserver
 
 Once that the server is running, visit [http://127.0.0.1:8000/](http://127.0.0.1:8000/) with your web browser.
 
-## Exercise 1: count each protein once - Solution [Solution](https://github.com/alepolignano/backend-technical-test/blob/master/seqfam/seqfamapp/serializers.py#L5)
+## Exercise 1: count each protein once - [Solution](https://github.com/alepolignano/backend-technical-test/blob/master/seqfam/seqfamapp/serializers.py#L5)
 
 InterPro entries integrate protein families and domains from various databases, such as Pfam, and 
 Pfam entries annotate one or multiple sequences in UniProtKB.
