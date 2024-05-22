@@ -61,7 +61,7 @@ The endpoint should return the following properties:
 The endpoint should be made available at `/api/interpro/<accession>`, 
 e.g. [/api/interpro/IPR016087](http://127.0.0.1:8000/api/interpro/IPR016087).
 
-## Exercise 3: compress sequences
+## Exercise 3: compress sequences - Solution: [code#1](https://github.com/alepolignano/backend-technical-test/blob/master/seqfam/seqfamapp/models.py#L4), [migration#1] (https://github.com/alepolignano/backend-technical-test/blob/master/seqfam/seqfamapp/migrations/0002_alter_uniprotkbentry_sequence.py), [migration#2](https://github.com/alepolignano/backend-technical-test/blob/master/seqfam/seqfamapp/migrations/0003_compress_existing_sequences.py)
 
 Protein sequences can be lengthy, and storing them uncompressed can consume significant database storage, 
 especially when dealing with large datasets (hundreds of millions of sequences).
