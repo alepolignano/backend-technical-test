@@ -75,6 +75,7 @@ function renderPfam(item) {
     });
 }
 
+
 function renderUniProt(item) {
     return ['accession', 'name', 'reviewed', 'sequence'].map((key,) => {
         const td = document.createElement('td');
