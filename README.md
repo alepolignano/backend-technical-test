@@ -26,7 +26,7 @@ python manage.py runserver
 
 Once that the server is running, visit [http://127.0.0.1:8000/](http://127.0.0.1:8000/) with your web browser.
 
-## Exercise 1: count each protein once
+## Exercise 1: count each protein once - Solution [Solution](https://github.com/alepolignano/backend-technical-test/blob/master/seqfam/seqfamapp/serializers.py#L5)
 
 InterPro entries integrate protein families and domains from various databases, such as Pfam, and 
 Pfam entries annotate one or multiple sequences in UniProtKB.
@@ -44,6 +44,8 @@ the number of individual Pfam annotations is displayed, which means that some pr
 
 **Task:** provide a fix so that each protein associated with an InterPro entry is counted only once,
 regardless of the number of annotations it receives from Pfam entries.
+
+
 
 ## Exercise 2: implement a detailed endpoint for InterPro entries
 
