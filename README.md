@@ -70,7 +70,7 @@ Currently, the project stores protein sequences in a database table without comp
 **Task:** update the project so sequences are stored using gzip compression. 
 Additionally, create a custom migration script to compress the existing sequences in the database.
 
-## Exercise 4: sequence length
+## Exercise 4: sequence length - Solution: [code#1](https://github.com/alepolignano/backend-technical-test/blob/master/seqfam/seqfamapp/serializers.py#L44), [code#2](https://github.com/alepolignano/backend-technical-test/blob/master/seqfam/seqfamapp/static/list.js#L133)
 
 The [uniprot](http://127.0.0.1:8000/uniprot) page lists all UniProtKB entries in the database.
 The fourth column is the length of the sequence.
