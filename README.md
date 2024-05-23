@@ -26,7 +26,8 @@ python manage.py runserver
 
 Once that the server is running, visit [http://127.0.0.1:8000/](http://127.0.0.1:8000/) with your web browser.
 
-## Exercise 1: count each protein once - Solution: [Code #1](https://github.com/alepolignano/backend-technical-test/blob/master/seqfam/seqfamapp/serializers.py#L5), [Code #2](https://github.com/alepolignano/backend-technical-test/blob/master/seqfam/seqfamapp/serializers.py#L57) 
+## Exercise 1: count each protein once 
+### Solution: [Code #1](https://github.com/alepolignano/backend-technical-test/blob/master/seqfam/seqfamapp/serializers.py#L5), [Code #2](https://github.com/alepolignano/backend-technical-test/blob/master/seqfam/seqfamapp/serializers.py#L57) 
 
 InterPro entries integrate protein families and domains from various databases, such as Pfam, and 
 Pfam entries annotate one or multiple sequences in UniProtKB.
@@ -47,7 +48,8 @@ regardless of the number of annotations it receives from Pfam entries.
 
 
 
-## Exercise 2: implement a detailed endpoint for InterPro entries - Solution: [Code](https://github.com/alepolignano/backend-technical-test/blob/master/seqfam/seqfamapp/serializers.py#L69)
+## Exercise 2: implement a detailed endpoint for InterPro entries 
+### Solution: [Code](https://github.com/alepolignano/backend-technical-test/blob/master/seqfam/seqfamapp/serializers.py#L69)
 
 **Task:** create a detailed endpoint that retrieves information about an InterPro entry based on its accession. 
 The endpoint should return the following properties:
@@ -61,7 +63,8 @@ The endpoint should return the following properties:
 The endpoint should be made available at `/api/interpro/<accession>`, 
 e.g. [/api/interpro/IPR016087](http://127.0.0.1:8000/api/interpro/IPR016087).
 
-## Exercise 3: compress sequences - Solution: [Code #1](https://github.com/alepolignano/backend-technical-test/blob/master/seqfam/seqfamapp/models.py#L4), [Migration #1](https://github.com/alepolignano/backend-technical-test/blob/master/seqfam/seqfamapp/migrations/0002_alter_uniprotkbentry_sequence.py), [Migration #2](https://github.com/alepolignano/backend-technical-test/blob/master/seqfam/seqfamapp/migrations/0003_compress_existing_sequences.py)
+## Exercise 3: compress sequences
+### Solution: [Code #1](https://github.com/alepolignano/backend-technical-test/blob/master/seqfam/seqfamapp/models.py#L4), [Migration #1](https://github.com/alepolignano/backend-technical-test/blob/master/seqfam/seqfamapp/migrations/0002_alter_uniprotkbentry_sequence.py), [Migration #2](https://github.com/alepolignano/backend-technical-test/blob/master/seqfam/seqfamapp/migrations/0003_compress_existing_sequences.py)
 
 Protein sequences can be lengthy, and storing them uncompressed can consume significant database storage, 
 especially when dealing with large datasets (hundreds of millions of sequences).
@@ -70,7 +73,8 @@ Currently, the project stores protein sequences in a database table without comp
 **Task:** update the project so sequences are stored using gzip compression. 
 Additionally, create a custom migration script to compress the existing sequences in the database.
 
-## Exercise 4: sequence length - Solution: [Code #1](https://github.com/alepolignano/backend-technical-test/blob/master/seqfam/seqfamapp/serializers.py#L44), [Code #2](https://github.com/alepolignano/backend-technical-test/blob/master/seqfam/seqfamapp/static/list.js#L133)
+## Exercise 4: sequence length
+### Solution: [Code #1](https://github.com/alepolignano/backend-technical-test/blob/master/seqfam/seqfamapp/serializers.py#L44), [Code #2](https://github.com/alepolignano/backend-technical-test/blob/master/seqfam/seqfamapp/static/list.js#L133)
 
 The [uniprot](http://127.0.0.1:8000/uniprot) page lists all UniProtKB entries in the database.
 The fourth column is the length of the sequence.
@@ -79,14 +83,16 @@ This is inefficient, as we only need the length.
 
 **Task:** update the project so the length is returned instead of the sequence.
 
-## Exercise 5: not all proteins at once - Solution: [Code #1](https://github.com/alepolignano/backend-technical-test/blob/master/seqfam/seqfamapp/views.py#L14), [Code #2](https://github.com/alepolignano/backend-technical-test/blob/master/seqfam/seqfamapp/static/list.js#L39)
+## Exercise 5: not all proteins at once
+### Solution: [Code #1](https://github.com/alepolignano/backend-technical-test/blob/master/seqfam/seqfamapp/views.py#L14), [Code #2](https://github.com/alepolignano/backend-technical-test/blob/master/seqfam/seqfamapp/static/list.js#L39)
 
 The [/api/uniprot](http://127.0.0.1:8000/api/uniprot) endpoint returns all UniProtKB entries in the database, 
 which can be inefficient with large datasets. 
 
 **Task:** update the endpoint to handle large datasets efficiently.
 
-## Exercise 6: use InterPro accessions, not primary keys - Solution: [Code](https://github.com/alepolignano/backend-technical-test/blob/master/seqfam/seqfamapp/serializers.py#L86)
+## Exercise 6: use InterPro accessions, not primary keys
+### Solution: [Code](https://github.com/alepolignano/backend-technical-test/blob/master/seqfam/seqfamapp/serializers.py#L86)
 
 The [pfam](http://127.0.0.1:8000/pfam) page lists all Pfam entries in the database.
 For each Pfam entry, the last column should display the accession of the InterPro entry in which the Pfam entry is integrated, if integrated.
