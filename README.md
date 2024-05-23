@@ -18,6 +18,7 @@ create a SQLite database, populate it with fixture data, and start the server.
 
 ```sh
 git clone https://github.com/alepolignano/backend-technical-test.git
+cd backend-technical-test
 pip install -r requirements.txt
 cd seqfam
 python manage.py migrate
