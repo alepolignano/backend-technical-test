@@ -5,12 +5,14 @@ document.addEventListener('DOMContentLoaded', function () {
         .replace(/\/+$/, '');
 
     // Exercise 5 - not all proteins at once (get url param)
-    let page = url.searchParams.get("page") ? url.searchParams.get("page") : 0
+    let page = url.searchParams.get("page") ? url.searchParams.get("page") : 1
     getData(endpoint, page);
 });
 
+
+
 // Exercise 5 - not all proteins at once (button navigation)
-function addPaginationButtonsUniprot(prevPageUrl, nextPageUrl){
+function addPaginationButtonsUniprot(prevPageUrl, nextPageUrl, maxPage){
 
     let nextPageButtonDiv = document.createElement("div")
     nextPageButtonDiv.classList.add("page-div")
@@ -27,20 +29,39 @@ function addPaginationButtonsUniprot(prevPageUrl, nextPageUrl){
     prevPageButton.href = prevPageUrl
     prevPageButton.classList.add("page-btn")
 
+    let pageInput = document.createElement("input")
+    pageInput.setAttribute("placeholder", "Go to page")
+    pageInput.classList.add("page-btn")
+
+    let pageInputGo = document.createElement("button")
+    pageInputGo.classList.add("page-btn")
+    pageInputGo.innerText = "Go"
+
+    console.log(maxPage)
+    pageInputGo.addEventListener('click', function(){
+        let pageInt = parseInt(pageInput.value)
+        if (pageInt && pageInt> 0 && pageInt <= maxPage){
+            location.href = `uniprot?page=${parseInt(pageInput.value)}`
+        }
+    });
+
     document.getElementById('page-div').appendChild(prevPageButton);
     document.getElementById('page-div').appendChild(nextPageButton);
+    document.getElementById('page-div').appendChild(pageInput);
+    document.getElementById('page-div').appendChild(pageInputGo);
+    
 }
 
-async function getData(endpoint, page = 0) {
+async function getData(endpoint, page = 1) {
 
     let apiURL = `/api/${endpoint}`;
     let fn = null;
 
     // Exercise 5 - not all proteins at once (setup)
     let paginationData = false;
-    let notNullPage = false
     let prevPageUrl = "#"
     let nextPageUrl = "uniprot?page=2"
+    let maxPage = 0
 
     
     switch (endpoint) {
@@ -73,7 +94,8 @@ async function getData(endpoint, page = 0) {
         // Exercise 5 - not all proteins at once (setup URLs for next and prev buttons)
         prevPageUrl = data["previous"] ? `uniprot?page=${parseInt(page) - 1}`: "#"
         nextPageUrl = data["next"] ? `uniprot?page=${parseInt(page) + 1}`: "#"
-
+        maxPage = Math.ceil(data["count"] / 10)
+        
         // Exercise 5 - not all proteins at once (now the actual data is stored in data["results"])
         data = data["results"]
     }
@@ -93,7 +115,7 @@ async function getData(endpoint, page = 0) {
 
     // Exercise 5 - not all proteins at once (add buttons to page)
     if (endpoint == 'uniprot'){
-        addPaginationButtonsUniprot(prevPageUrl, nextPageUrl)
+        addPaginationButtonsUniprot(prevPageUrl, nextPageUrl, maxPage)
     }
 }
 
